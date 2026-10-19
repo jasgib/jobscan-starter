@@ -1,0 +1,34 @@
+# jobscan settings. /setup writes your real config.yaml from this shape.
+# Lines starting with # are notes and are ignored.
+
+search:
+  # A job passes if any of these appear in its location, title or link.
+  location_terms: [London, Remote]
+  # Titles containing any of these whole words are dropped before Claude sees them.
+  exclude_title_terms: [intern, internship, graduate, apprentice, sales executive]
+  # Too senior for you - dropped unless the title also has a word from level_terms.
+  seniority_exclude_terms: [director, head of, vice president, vp, chief]
+  level_terms: [associate, assistant, junior]
+  # Used only by platforms that search by keyword (Workday, Oracle, Reed).
+  # Platforms like Greenhouse return every job and need no queries.
+  queries: [marketing, brand, product marketing]
+  workers: 6
+
+employers: {}
+# Starts empty: /setup adds the companies YOU choose, each tested live first.
+# This is the shape an entry takes once added (placeholders, not real boards):
+#   greenhouse:
+#     - {name: Company A, board: companya}
+#   workday:
+#     - {name: Company B, tenant: companyb, host: wd3, site: External_Careers}
+
+# Optional: the Reed job board (covers recruitment agencies and smaller firms).
+# Needs a free key from https://www.reed.co.uk/developers/jobseeker saved in a
+# file called .env in this folder as:  REED_API_KEY=your-key
+#  reed:
+#    - name: Reed
+#      location: London
+#      distance: 10
+#      min_salary: 40000
+#      max_age_days: 7
+#      queries: [brand manager, product marketing manager]

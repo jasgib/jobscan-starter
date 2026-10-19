@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>jobscan · Welcome</title>
+<style>
+:root{
+  --bg:#f4f6f8;--card:#ffffff;--ink:#17202a;--ink-2:#3a4552;--muted:#5f6b78;--rule:#dde2e8;
+  --accent:#1e6b52;--accent-ink:#ffffff;--accent-soft:#e3f1ec;--warn:#9a5b0b;--bad:#a12f2b;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1316;--card:#171c21;--ink:#e8ecef;--ink-2:#c3cbd3;--muted:#94a0ab;--rule:#29313a;
+  --accent:#5fc39c;--accent-ink:#0c1512;--accent-soft:#183129;--warn:#e2a54f;--bad:#ec7b74;}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+a{color:var(--accent)}
+code,kbd,.cmd{font-family:var(--mono);font-size:.88em}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:40px;max-width:1120px;margin:0 auto;padding:32px 20px 80px}
+nav{position:sticky;top:24px;align-self:start}
+nav .brand{font-weight:700;font-size:1.15rem;letter-spacing:-.01em;margin-bottom:18px}
+nav ol{list-style:none;margin:0;padding:0;counter-reset:s}
+nav li{counter-increment:s;margin:2px 0}
+nav a{display:flex;gap:10px;padding:7px 10px;border-radius:6px;color:var(--ink-2);text-decoration:none;font-size:.92rem}
+nav a::before{content:counter(s);font-family:var(--mono);font-size:.8rem;color:var(--muted);width:1.2em}
+nav a:hover,nav a:focus-visible{background:var(--card);color:var(--ink)}
+.check{margin-top:22px;padding:14px;border:1px solid var(--rule);border-radius:8px;background:var(--card);font-size:.85rem}
+.check b{display:block;margin-bottom:6px}
+.check div{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.check div.done{color:var(--ink)}
+.check i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted);flex:none}
+.check .done i{background:var(--accent);border-color:var(--accent)}
+main section{margin-bottom:64px;scroll-margin-top:20px}
+h1{font-size:2.1rem;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+h2{font-size:1.45rem;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+h3{font-size:1.05rem;margin:26px 0 6px}
+.lede{color:var(--ink-2);font-size:1.08rem;max-width:62ch}
+p,li{max-width:68ch}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:22px}
+form .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+form .full{grid-column:1/-1}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:4px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:.84rem;margin-top:-2px;margin-bottom:6px}
+input[type=text],input[type=number],select,textarea{width:100%;font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:9px 11px}
+textarea{min-height:92px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.checks{display:flex;gap:16px;flex-wrap:wrap}
+.checks label{font-weight:400;display:flex;gap:6px;align-items:center}
+.drop{border:1.5px dashed var(--rule);border-radius:10px;padding:22px;text-align:center;color:var(--muted);cursor:pointer;background:var(--bg)}
+.drop.over{border-color:var(--accent);color:var(--ink)}
+.drop strong{color:var(--ink)}
+.actions{display:flex;gap:14px;align-items:center;margin-top:20px;flex-wrap:wrap}
+button{font:inherit;font-weight:600;padding:10px 18px;border-radius:7px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button:active{transform:translateY(1px)}
+.msg{font-size:.92rem}.msg.ok{color:var(--accent)}.msg.err{color:var(--bad)}
+.next{display:none;margin-top:18px;border-left:3px solid var(--accent);padding:12px 16px;background:var(--accent-soft);border-radius:0 8px 8px 0}
+.next.show{display:block}
+.cmd{display:block;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;margin:8px 0;white-space:pre-wrap;overflow-x:auto}
+.steps{counter-reset:n;list-style:none;padding:0}
+.steps>li{counter-increment:n;position:relative;padding-left:38px;margin:14px 0}
+.steps>li::before{content:counter(n);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:.85rem;display:grid;place-items:center}
+table{border-collapse:collapse;width:100%;font-size:.9rem;background:var(--card);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto}
+.flow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.flow span{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:8px 12px;font-size:.88rem}
+.flow b{color:var(--muted);font-weight:400}
+.note{color:var(--muted);font-size:.9rem}
+details{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:12px 16px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+@media (max-width:820px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:10px}
+  nav{position:static}
+  nav ol{display:flex;flex-wrap:wrap;gap:4px}
+  .check{display:none}
+  form .grid{grid-template-columns:1fr}
+  h1{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav aria-label="Sections">
+  <div class="brand">jobscan</div>
+  <ol>
+    <li><a href="#you">Get to know you</a></li>
+    <li><a href="#setup">Set up with Claude</a></li>
+    <li><a href="#daily">Your daily routine</a></li>
+    <li><a href="#companies">Adding companies</a></li>
+    <li><a href="#adapters">How adapters work</a></li>
+    <li><a href="#profile">Your profile and CV</a></li>
+    <li><a href="#apply">Writing an application</a></li>
+    <li><a href="#faq">Questions</a></li>
+  </ol>
+  <div class="check" id="check" aria-live="polite">
+    <b>Your progress</b>
+    <div data-k="about"><i></i>About you saved</div>
+    <div data-k="cv"><i></i>CV added</div>
+    <div data-k="profile"><i></i>Profile written</div>
+    <div data-k="config"><i></i>Companies chosen</div>
+    <div data-k="dashboard"><i></i>First jobs reviewed</div>
+  </div>
+</nav>
+
+<main>
+<section id="you">
+  <h1>Welcome. Let's set this up around you.</h1>
+  <p class="lede">jobscan reads the job boards of the companies you care about every day, throws out what's obviously wrong, and then has Claude judge what's left against <em>you</em> - not keywords. To do that well, it needs to know who you are and what you're looking for.</p>
+  <p class="note">Everything you enter here stays on this laptop, in the <code>me/</code> folder. Nothing is uploaded. Claude reads it when you run <code>/setup</code>.</p>
+
+  <form id="aboutForm" class="panel" novalidate>
+    <div class="grid">
+      <div class="full">
+        <label for="name">First name</label>
+        <input type="text" id="name" name="name" autocomplete="given-name">
+      </div>
+      <div class="full">
+        <label for="now">Where you are now</label>
+        <span class="hint">Your current role, the kind of employer, and how long you've been doing this kind of work.</span>
+        <textarea id="now" name="now" placeholder="e.g. Marketing manager at a mid-size retailer, 5 years in consumer brands, before that 2 years in an agency."></textarea>
+      </div>
+      <div class="full">
+        <label for="want">What you want next</label>
+        <span class="hint">The roles you'd be excited to land. Example job titles help a lot, and so do roles you've seen advertised that felt right.</span>
+        <textarea id="want" name="want" placeholder="e.g. Brand or product marketing at a company I actually use; a team that tests and learns; something like 'Senior Brand Manager' or 'Product Marketing Manager'."></textarea>
+      </div>
+      <div class="full">
+        <label for="why">Why you're moving</label>
+        <span class="hint">What you want more of, and what's pushing you out. Be candid - this is what lets Claude tell two similar-looking jobs apart.</span>
+        <textarea id="why" name="why" placeholder="e.g. I want more ownership of strategy and less agency firefighting; tired of last-minute pitch weekends."></textarea>
+      </div>
+      <div class="full">
+        <label for="avoid">What you want to avoid</label>
+        <span class="hint">Deal-breakers and warning signs: kinds of work, industries, cultures, travel, hours.</span>
+        <textarea id="avoid" name="avoid" placeholder="e.g. Pure sales targets; gambling or tobacco; roles that are mostly people management with no hands-on work."></textarea>
+      </div>
+      <div>
+        <label for="level">Level you're aiming for</label>
+        <select id="level" name="level">
+          <option value="">Choose…</option>
+          <option>Entry / graduate</option><option>Junior</option><option>Mid-level</option>
+          <option>Senior</option><option>Lead / manager</option><option>Head of / director</option>
+        </select>
+        <div class="checks" style="margin-top:8px"><label><input type="checkbox" name="step_down"> I'd take a step down to switch field</label></div>
+      </div>
+      <div>
+        <label for="salary">Salary floor <span class="hint" style="display:inline">(optional)</span></label>
+        <input type="text" id="salary" name="salary" placeholder="e.g. £45,000">
+      </div>
+      <div>
+        <label for="where">Where you'd work</label>
+        <span class="hint">Cities or regions, most important first.</span>
+        <input type="text" id="where" name="where" placeholder="e.g. London, Manchester">
+      </div>
+      <div>
+        <label>Ways of working</label>
+        <div class="checks" style="padding-top:6px">
+          <label><input type="checkbox" name="mode" value="office"> Office</label>
+          <label><input type="checkbox" name="mode" value="hybrid"> Hybrid</label>
+          <label><input type="checkbox" name="mode" value="remote"> Remote</label>
+        </div>
+      </div>
+      <div class="full">
+        <label for="companies">Companies you already have in mind</label>
+        <span class="hint">One per line. Claude will find their job boards and test them during setup.</span>
+        <textarea id="companies" name="companies" placeholder="e.g.&#10;Monzo&#10;Spotify&#10;Unilever"></textarea>
+      </div>
+      <div class="full">
+        <label for="exclude">Companies or sectors to leave out</label>
+        <input type="text" id="exclude" name="exclude" placeholder="e.g. my current employer; defence">
+      </div>
+      <div class="full">
+        <label for="languages">Languages</label>
+        <input type="text" id="languages" name="languages" placeholder="e.g. English (native), Spanish (fluent)">
+      </div>
+      <div class="full">
+        <label for="extra">Anything else Claude should know</label>
+        <textarea id="extra" name="extra" placeholder="Visa status, notice period, things you're proud of that your CV undersells…"></textarea>
+      </div>
+      <div class="full">
+        <label>Your CV</label>
+        <span class="hint">Your usual, general CV - PDF is best; Word (.docx) works too. It's the only source Claude will write applications from, so it should be complete and true.</span>
+        <div class="drop" id="drop" tabindex="0" role="button" aria-describedby="dropText">
+          <span id="dropText"><strong>Drop your CV here</strong> or click to choose a file</span>
+        </div>
+        <input type="file" id="cv" accept=".pdf,.docx,.txt,.md" hidden>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit">Save my answers</button>
+      <span class="msg" id="msg" role="status"></span>
+    </div>
+    <div class="next" id="next">
+      <strong>Saved. Next step: let Claude read it.</strong>
+      <p style="margin:6px 0 0">Go to <a href="#setup">Set up with Claude</a> below. You can come back and edit these answers any time; run <code>/setup</code> again afterwards.</p>
+    </div>
+  </form>
+</section>
+
+<section id="setup">
+  <h2>Set up with Claude</h2>
+  <p>This is a one-off, about 15-20 minutes. You'll need <strong>Claude Code</strong> installed and signed in with your Claude Pro account (search "Claude Code install" on Anthropic's site; it runs in your terminal).</p>
+  <ol class="steps">
+    <li>Open a terminal in this jobscan folder and start Claude Code:
+      <span class="cmd">claude</span></li>
+    <li>Type:
+      <span class="cmd">/setup</span>
+      Claude reads your answers and your CV, asks a few follow-up questions, then writes three things you can check and edit:
+      <ul>
+        <li><code>me/profile.md</code> - who you are and what you want, written so Claude can judge jobs consistently.</li>
+        <li><code>me/master.json</code> - your CV as structured data, taken <em>only</em> from what your CV says.</li>
+        <li><code>config.yaml</code> - your locations, filters, and the companies to watch, each one tested live.</li>
+      </ul></li>
+    <li>Read <code>me/profile.md</code> carefully and correct anything that isn't you. It's the single thing that decides which jobs you see.</li>
+  </ol>
+</section>
+
+<section id="daily">
+  <h2>Your daily routine</h2>
+  <p>Two steps, a few minutes a day. Employers rarely post at weekends, so weekdays are enough.</p>
+  <ol class="steps">
+    <li><strong>Collect</strong> new jobs (free - no Claude involved):
+      <span class="cmd">.venv/bin/python -m jobscan collect</span>
+      It checks every company on your list (on Windows: <code>.venv\Scripts\python -m jobscan collect</code>) and tells you how many new jobs passed your filters. Double-click <code>collect.command</code> (Mac) or <code>collect.bat</code> (Windows) if you prefer.</li>
+    <li><strong>Review</strong> them in Claude Code:
+      <span class="cmd">/review-jobs</span>
+      Claude reads each new job against your profile, gives it a score out of 10 and a one-line reason, and rebuilds your dashboard. Strong matches are listed at the end.</li>
+    <li>Open <code>dashboard.html</code> (or <a href="/dashboard">your dashboard</a> while this page is running) to see everything scored, best first.</li>
+  </ol>
+  <p class="note">Your Pro plan has usage limits that reset every few hours. A normal day's batch is fine; if a first review has hundreds of jobs, Claude will work through them in chunks and tell you where it stopped.</p>
+</section>
+
+<section id="companies">
+  <h2>Adding companies</h2>
+  <h3>The easy way</h3>
+  <p>In Claude Code, type:</p>
+  <span class="cmd">/add-company Spotify</span>
+  <p>Claude finds where the company posts jobs, works out which job platform it uses, tests it live, checks it's really that company (and not another firm with a similar name), and only then adds it. If the company uses a platform jobscan can't read yet, Claude says so instead of guessing.</p>
+  <h3>By hand</h3>
+  <p>Every company lives in <code>config.yaml</code> under the platform it uses. Test before adding:</p>
+  <span class="cmd">.venv/bin/python -m jobscan employer-test greenhouse '{"name": "Monzo", "board": "monzo"}'
+.venv/bin/python -m jobscan employer-add  greenhouse '{"name": "Monzo", "board": "monzo"}'</span>
+  <p class="note">On Windows, use <code>.venv\Scripts\python</code> in place of <code>.venv/bin/python</code>.</p>
+  <p class="note">If a test returns 0 jobs, the details are wrong - don't add it. A company with a broken entry is just skipped, but it will never show you anything.</p>
+</section>
+
+<section id="adapters">
+  <h2>How adapters work</h2>
+  <p>Companies don't build their own job sites; they rent one from a handful of platforms - Workday, Greenhouse, Ashby and so on. Each platform publishes its jobs in a predictable way. An <strong>adapter</strong> is the small piece of code that knows how to read one platform, so one adapter covers every company that uses it.</p>
+  <div class="flow" aria-label="How a job reaches you">
+    <span>Company's job board</span><b>→</b><span>Adapter reads it</span><b>→</b><span>Free filters: place, level, excluded titles</span><b>→</b><span>Claude judges it against your profile</span><b>→</b><span>Your dashboard</span>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Platform</th><th>How you spot it</th><th>What jobscan needs</th></tr></thead>
+    <tbody>
+      <tr><td>Workday</td><td><code>company.wd3.myworkdayjobs.com/Site</code></td><td>tenant, host (wd1/wd3/wd5…), site</td></tr>
+      <tr><td>Greenhouse</td><td><code>job-boards.greenhouse.io/board</code></td><td>board</td></tr>
+      <tr><td>Ashby</td><td><code>jobs.ashbyhq.com/board</code></td><td>board</td></tr>
+      <tr><td>Lever</td><td><code>jobs.lever.co/board</code></td><td>board</td></tr>
+      <tr><td>SmartRecruiters</td><td><code>jobs.smartrecruiters.com/Board</code></td><td>board</td></tr>
+      <tr><td>Workable</td><td><code>apply.workable.com/account</code></td><td>account</td></tr>
+      <tr><td>Oracle Cloud</td><td><code>…oraclecloud.com/hcmUI/CandidateExperience/…/sites/CX_1</code></td><td>host, site</td></tr>
+      <tr><td>SuccessFactors</td><td>a careers site with <code>/viewalljobs</code> or <code>/search/</code></td><td>base (the site address)</td></tr>
+      <tr><td>Reed (job board)</td><td>covers recruitment agencies and smaller firms</td><td>a free API key from reed.co.uk/developers, then <code>REED_API_KEY</code> in a <code>.env</code> file</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Some platforms (iCIMS, Avature, Taleo, Teamtailor and others) have no adapter yet. <code>/add-company</code> will tell you when a company uses one.</p>
+</section>
+
+<section id="profile">
+  <h2>Your profile and CV</h2>
+  <p>Two files make jobscan yours. <code>/setup</code> writes first drafts of both; you own them after that.</p>
+  <h3>me/profile.md - how jobs are judged</h3>
+  <p>Claude reads this before every review. The best profiles are specific about <em>why</em>, not just <em>what</em>:</p>
+  <ul>
+    <li><strong>The one-line version:</strong> what you're trying to do with your career right now.</li>
+    <li><strong>Target roles, in tiers:</strong> what's a strong fit, a good fit, and a maybe.</li>
+    <li><strong>What you're moving away from:</strong> and how to recognise it in a job description, even when the title looks right.</li>
+    <li><strong>Level rules:</strong> titles that are too senior or too junior for you.</li>
+    <li><strong>Worked examples:</strong> a few real postings with the score you'd give them and why. These do more than any rule - add one whenever you disagree with a score.</li>
+  </ul>
+  <h3>me/master.json - your CV, as data</h3>
+  <p>Every application is written from this file and nothing else. That's the safety rule: Claude may reorder, emphasise and reword what's in it, but never add a skill, number or achievement that isn't there. If something true is missing from your CV, add it here first.</p>
+  <h3>Make it yours, not a copy of someone else's</h3>
+  <ul>
+    <li>Use your own words in <code>profile.md</code>. If a line sounds like a job advert, Claude can't tell what you actually want.</li>
+    <li>Keep <code>master.json</code> complete and factual: dates, numbers, tools. Tailoring happens per application, not here.</li>
+    <li>Re-run <code>/setup</code> whenever your direction changes.</li>
+  </ul>
+</section>
+
+<section id="apply">
+  <h2>Writing an application</h2>
+  <p>When a job is worth applying for, in Claude Code type:</p>
+  <span class="cmd">/write-pack</span>
+  <p>and name the job (or paste its key from the dashboard). Claude writes a tailored CV and cover letter from <code>me/master.json</code>, checks every claim against it, and saves both as PDFs in <code>applications/</code>. Read both before you send them - you're the final check.</p>
+  <p class="note">PDFs need Google Chrome or Chromium installed; jobscan uses it to print them with real, searchable text.</p>
+</section>
+
+<section id="faq">
+  <h2>Questions</h2>
+  <details><summary>Does this cost anything?</summary><p>No, beyond the Claude Pro plan you already have. Collecting jobs is free; the judging happens in your own Claude Code session.</p></details>
+  <details><summary>Is my data sent anywhere?</summary><p>Your answers and CV stay in the <code>me/</code> folder on this laptop. When you run Claude Code, the files Claude reads are sent to Claude to be processed, as with anything else you share with it.</p></details>
+  <details><summary>A company shows 0 jobs.</summary><p>Either it has no openings in your area, or its job site changed. Ask Claude: "check why &lt;company&gt; returns nothing" - it will re-test it.</p></details>
+  <details><summary>I disagree with a score.</summary><p>Tell Claude why, then ask it to add that job to the worked examples in <code>me/profile.md</code>. That's how the scoring learns your taste.</p></details>
+  <details><summary>How do I stop this page?</summary><p>Close the browser tab and press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the terminal window that opened it. Start it again with <code>start.command</code>, <code>start.sh</code> or <code>start.bat</code>.</p></details>
+</section>
+</main>
+</div>
+
+<script>
+const form = document.getElementById("aboutForm"), msg = document.getElementById("msg");
+const drop = document.getElementById("drop"), fileInput = document.getElementById("cv");
+let cvFile = null;
+
+function showFile(name){ document.getElementById("dropText").innerHTML = "<strong>" + name.replace(/[<>&]/g, "") + "</strong> - click to replace"; }
+drop.addEventListener("click", () => fileInput.click());
+drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
+fileInput.addEventListener("change", () => { if (fileInput.files[0]) { cvFile = fileInput.files[0]; showFile(cvFile.name); } });
+["dragenter","dragover"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => { const f = e.dataTransfer.files[0]; if (f) { cvFile = f; showFile(f.name); } });
+
+function readFile(f){ return new Promise((ok, bad) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = bad; r.readAsDataURL(f); }); }
+
+function collectAnswers(){
+  const fd = new FormData(form), about = {};
+  for (const [k, v] of fd.entries()) {
+    if (k === "mode") (about.mode ||= []).push(v);
+    else if (k === "step_down") about.step_down = true;
+    else about[k] = String(v).trim();
+  }
+  return about;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const about = collectAnswers();
+  if (!about.want) { msg.className = "msg err"; msg.textContent = "Tell us what you want next - it's the one answer jobscan can't work without."; document.getElementById("want").focus(); return; }
+  msg.className = "msg"; msg.textContent = "Saving…";
+  try {
+    const body = { about };
+    if (cvFile) {
+      if (!/\.(pdf|docx|txt|md)$/i.test(cvFile.name)) throw new Error("Your CV needs to be a PDF, Word (.docx) or text file.");
+      body.cv = { name: cvFile.name, data: await readFile(cvFile) };
+    }
+    const r = await fetch("/api/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error || "Couldn't save.");
+    msg.className = "msg ok"; msg.textContent = "Saved to the me/ folder.";
+    document.getElementById("next").classList.add("show");
+    paint(d.state);
+  } catch (err) {
+    msg.className = "msg err"; msg.textContent = err.message || "Couldn't reach jobscan. Is the terminal window that opened this page still running?";
+  }
+});
+
+function paint(s){
+  document.querySelectorAll("#check [data-k]").forEach(el => el.classList.toggle("done", !!s[el.dataset.k]));
+}
+
+fetch("/api/state").then(r => r.json()).then(s => {
+  paint(s);
+  const a = s.saved; if (!a) return;
+  for (const [k, v] of Object.entries(a)) {
+    if (k === "mode") v.forEach(m => { const el = form.querySelector(`[name=mode][value="${m}"]`); if (el) el.checked = true; });
+    else if (k === "step_down") form.step_down.checked = !!v;
+    else if (form.elements[k] && typeof v === "string") form.elements[k].value = v;
+  }
+  if (a.cv_file) showFile(a.cv_file.replace("me/", "") + " (saved)");
+}).catch(() => {});
+</script>
+</body>
+</html>

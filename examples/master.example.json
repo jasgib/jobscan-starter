@@ -1,0 +1,48 @@
+{
+  "_note": "A made-up person, to show the shape. /setup writes your real one to me/master.json from your CV only.",
+  "name": "Sam Example",
+  "subtitle": "Brand and Product Marketing",
+  "contact": {
+    "phone": "+44 7700 900123",
+    "email": "sam@example.com",
+    "linkedin": "linkedin.com/in/sam-example",
+    "site": ""
+  },
+  "profile": "Marketing manager with six years in consumer brands. Led the relaunch of an own-label range across 300 stores and grew loyalty sign-ups 40% in a year. Comfortable with research, budgets and creative briefs; looking to own product marketing at a company with a product people love.",
+  "experience": [
+    {
+      "dates": "2022 - present",
+      "org": "Northfield Retail",
+      "role": "Marketing Manager, Own Brands",
+      "location": "Leeds",
+      "bullets": [
+        "Led the relaunch of a 120-product own-label range across 300 stores; range sales up 18% in the first year.",
+        "Ran the loyalty programme's acquisition campaigns; sign-ups up 40% year on year on a flat budget.",
+        "Managed a £1.2m annual budget and three agencies (creative, media, research)."
+      ]
+    },
+    {
+      "dates": "2019 - 2022",
+      "org": "Brightside Agency",
+      "role": "Account Manager",
+      "location": "Manchester",
+      "bullets": [
+        "Day-to-day lead on four consumer accounts, including a national drinks brand.",
+        "Wrote the briefs and ran the research for two award-shortlisted campaigns."
+      ]
+    }
+  ],
+  "technical": {
+    "heading": "Skills and Tools",
+    "bullets": ["Customer research: surveys, interviews and segmentation", "Campaign planning and budget management"],
+    "chips": ["Google Analytics", "Meta Ads Manager", "Excel", "Figma"]
+  },
+  "education": [
+    { "dates": "2015 - 2018", "org": "University of Sheffield", "location": "Sheffield", "detail": "BA Business Management, 2:1" }
+  ],
+  "languages": [
+    { "name": "English", "level": "Native", "filled": 6 },
+    { "name": "Spanish", "level": "Conversational", "filled": 3 }
+  ],
+  "volunteering": []
+}

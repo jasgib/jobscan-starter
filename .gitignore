@@ -1,0 +1,14 @@
+# Personal data and generated files - never commit these
+me/
+applications/
+config.yaml
+jobscan.db
+dashboard.html
+.env
+.env.*
+
+# Local tooling
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

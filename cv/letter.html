@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ name }} — Cover Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 18mm 16mm 18mm; }
+  :root{ --navy:#14304f; --ink:#33404d; --ink-strong:#1b1b1b; --rule:#c9ced6; --muted:#5a5a5a; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:"Source Sans 3","Source Sans Pro",-apple-system,Helvetica,Arial,sans-serif;
+       font-size:10pt;line-height:1.48;color:var(--ink);-webkit-font-smoothing:antialiased;
+       /* Same guard as the CV: a right-aligned run flush to the margin can
+          lose its final glyph when the PDF is rasterised. */
+       padding-right:1.5pt}
+  .contact{padding-right:0.5pt}
+  a{color:inherit;text-decoration:none}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16pt;
+        border-bottom:1pt solid var(--rule);padding-bottom:10pt}
+  .name{font-size:19pt;font-weight:300;letter-spacing:.13em;color:var(--navy);
+        line-height:1;text-transform:uppercase;white-space:nowrap}
+  .sub{font-size:9pt;color:var(--ink);margin-top:5pt}
+  .contact{text-align:right;font-size:8.6pt;line-height:1.5;white-space:nowrap}
+  .contact .site{font-weight:700;color:var(--navy)}
+
+  .to{margin-top:22pt;font-size:9.6pt;line-height:1.45}
+  .to .org{font-weight:600;color:var(--ink-strong)}
+  .date{margin-top:14pt;font-size:9.6pt;color:var(--muted)}
+  .re{margin-top:18pt;font-weight:600;color:var(--ink-strong);font-size:10pt}
+  .salutation{margin-top:16pt}
+  p{margin:0 0 10pt}
+  .body p:last-of-type{margin-bottom:0}
+  .body{margin-top:12pt;max-width:62em;text-align:left}
+  .signoff{margin-top:20pt}
+  .signoff .nm{margin-top:22pt;font-weight:600;color:var(--ink-strong)}
+</style>
+</head>
+<body>
+  <div class="head">
+    <div>
+      <div class="name">{{ name }}</div>
+      <div class="sub">{{ subtitle }}</div>
+    </div>
+    <div class="contact">
+      {% if contact.phone %}{{ contact.phone }}<br>{% endif %}
+      <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+      {% if contact.linkedin %}<br><a href="https://{{ contact.linkedin }}">{{ contact.linkedin }}</a>{% endif %}
+      {% if contact.site %}<br><a class="site" href="https://{{ contact.site }}">{{ contact.site }}</a>{% endif %}
+    </div>
+  </div>
+
+  <div class="to">
+    Recruitment Team<br>
+    <span class="org">{{ letter.employer }}</span><br>
+    {{ letter.city }}
+  </div>
+
+  <div class="date">{{ letter.date }}</div>
+
+  <div class="re">{{ letter.role }}{% if letter.ref %} · Reference {{ letter.ref }}{% endif %}</div>
+
+  <div class="salutation">{{ letter.salutation }}</div>
+
+  <div class="body">
+    {% for para in letter.paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </div>
+
+  <div class="signoff">
+    Yours faithfully,
+    <div class="nm">{{ name }}</div>
+  </div>
+</body>
+</html>

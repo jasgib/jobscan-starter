@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ name }} — Curriculum Vitae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 11mm 13mm 9mm 13mm; }
+  :root{
+    --navy:#14304f; --ink:#3b3b3b; --ink-strong:#1b1b1b;
+    --rule:#c9ced6; --muted:#5a5a5a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Source Sans 3","Source Sans Pro",-apple-system,Helvetica,Arial,sans-serif;
+    font-size:8.15pt; line-height:1.30; color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    /* A right-aligned run set flush to the margin loses its final glyph to
+       rounding in some PDF viewers - "London, UK" rendered as "London, U".
+       This keeps every line a whisker inside the printable area. */
+    padding-right:1.5pt;
+  }
+  /* Right-aligned cells must never be the thing that touches the edge. */
+  .contact, .where { padding-right:0.5pt; }
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- header ---------- */
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16pt}
+  .name{
+    font-size:24pt;font-weight:300;letter-spacing:.14em;color:var(--navy);
+    line-height:1;text-transform:uppercase;white-space:nowrap;
+  }
+  .subtitle{font-size:9pt;color:var(--ink);margin-top:5pt}
+  .contact{text-align:right;font-size:8.2pt;line-height:1.5;color:var(--ink);white-space:nowrap}
+  .contact .site{font-weight:700;color:var(--navy)}
+
+  /* ---------- section furniture ---------- */
+  .rule{border:0;border-top:1pt solid var(--rule);margin:6pt 0 0}
+  h2{
+    font-size:8.4pt;font-weight:600;letter-spacing:.20em;text-transform:uppercase;
+    color:var(--navy);margin:4.5pt 0 3.5pt;
+  }
+  .section{border-top:1pt solid var(--rule);margin-top:4.5pt;padding-top:0}
+  .section:first-of-type{border-top:0}
+
+  p.profile{margin:0;text-align:left}
+
+  /* ---------- two-column rows (dates | body) ---------- */
+  .row{display:flex;gap:10pt;margin-bottom:4pt;break-inside:avoid}
+  .row:last-child{margin-bottom:0}
+  .when{flex:0 0 76pt;font-size:8.2pt;color:var(--ink);padding-top:.5pt}
+  .body{flex:1 1 auto;min-width:0}
+  .titleline{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .org{font-weight:700;color:var(--ink-strong);font-size:9.1pt}
+  .sep{color:var(--muted);font-weight:300;margin:0 2pt}
+  .role{font-weight:400;color:var(--ink-strong);font-size:9.1pt}
+  .where{font-style:italic;color:var(--muted);font-size:8.2pt;white-space:nowrap}
+  ul.dash{list-style:none;margin:2.5pt 0 0;padding:0}
+  ul.dash li{position:relative;padding-left:9pt;margin-bottom:0.9pt}
+  ul.dash li::before{content:"–";position:absolute;left:0;color:var(--ink)}
+  .detail{margin-top:1pt}
+
+  /* ---------- chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:5pt;justify-content:center;margin:5pt 0 1pt}
+  .chip{
+    border:.7pt solid var(--rule);border-radius:2pt;padding:2.6pt 7pt;
+    font-size:8pt;color:var(--ink);white-space:nowrap;
+  }
+
+  /* ---------- languages ---------- */
+  .langs{display:flex;gap:16pt}
+  .lang{flex:1 1 0;min-width:0}
+  .lang .top{display:flex;justify-content:space-between;align-items:baseline}
+  .lang .lname{font-weight:700;color:var(--ink-strong);font-size:9pt}
+  .lang .llev{font-size:7.4pt;letter-spacing:.10em;color:var(--muted);text-transform:uppercase}
+  .bar{display:flex;gap:2.4pt;margin:3pt 0 1pt}
+  .seg{height:3.6pt;flex:1 1 0;background:var(--rule)}
+  .seg.on{background:var(--navy)}
+
+  /* ---------- volunteering ---------- */
+  .vols{display:flex;gap:16pt}
+  .vol{flex:1 1 0;min-width:0}
+  .vol .vname{font-weight:700;color:var(--ink-strong);font-size:8.8pt}
+  .vol .vdesc{margin-top:1pt}
+  .vol .vwhere{margin-top:1pt}
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <div>
+      <div class="name">{{ name }}</div>
+      <div class="subtitle">{{ subtitle }}</div>
+    </div>
+    <div class="contact">
+      {% if contact.phone %}{{ contact.phone }}<br>{% endif %}
+      <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+      {% if contact.linkedin %}<br><a href="https://{{ contact.linkedin }}">{{ contact.linkedin }}</a>{% endif %}
+      {% if contact.site %}<br><a class="site" href="https://{{ contact.site }}">{{ contact.site }}</a>{% endif %}
+    </div>
+  </div>
+  <hr class="rule">
+
+  <h2>Profile</h2>
+  <p class="profile">{{ profile }}</p>
+
+  <div class="section">
+    <h2>Professional Experience</h2>
+    {% for e in experience %}
+    <div class="row">
+      <div class="when">{{ e.dates }}</div>
+      <div class="body">
+        <div class="titleline">
+          <div><span class="org">{{ e.org }}</span><span class="sep">|</span><span class="role">{{ e.role }}</span></div>
+          <div class="where">{{ e.location }}</div>
+        </div>
+        <ul class="dash">{% for b in e.bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if technical and (technical.bullets or technical.chips) %}
+  <div class="section">
+    <h2>{{ technical.heading or "Skills and Tools" }}</h2>
+    {% if technical.bullets %}<ul class="dash">{% for b in technical.bullets %}<li>{{ b }}</li>{% endfor %}</ul>{% endif %}
+    {% if technical.chips %}<div class="chips">{% for c in technical.chips %}<span class="chip">{{ c }}</span>{% endfor %}</div>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="section">
+    <h2>Education and Qualifications</h2>
+    {% for e in education %}
+    <div class="row">
+      <div class="when">{{ e.dates }}</div>
+      <div class="body">
+        <div class="titleline">
+          <div class="org">{{ e.org }}</div>
+          <div class="where">{{ e.location }}</div>
+        </div>
+        <div class="detail">{{ e.detail }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if languages %}
+  <div class="section">
+    <h2>Languages</h2>
+    <div class="langs">
+      {% for l in languages %}
+      <div class="lang">
+        <div class="top"><span class="lname">{{ l.name }}</span><span class="llev">{{ l.level }}</span></div>
+        <div class="bar">{% for i in range(6) %}<span class="seg{% if i < l.filled %} on{% endif %}"></span>{% endfor %}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if volunteering %}
+  <div class="section">
+    <h2>Volunteering</h2>
+    <div class="vols">
+      {% for v in volunteering %}
+      <div class="vol">
+        <div class="vname">{{ v.org }}</div>
+        <div class="vdesc">{{ v.desc }}</div>
+        <div class="vwhere">{{ v.where }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</body>
+</html>
